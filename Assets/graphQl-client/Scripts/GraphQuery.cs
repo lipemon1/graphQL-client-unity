@@ -48,10 +48,9 @@ namespace graphQLClient
 
 		public static void POST(string details)
 		{
-			details = QueryChanger(details);
+			details = details.Replace("{NAME}", pokemonName);
 			var query = new Query { query = details };
-			var jsonData = JsonUtility.ToJson(query);
-			instance.StartCoroutine(GraphQlPost(url, jsonData));
+			instance.StartCoroutine(GraphQlPost(url, JsonUtility.ToJson(query)));
 			queryStatus = Status.Loading;
 		}
 
@@ -87,11 +86,6 @@ namespace graphQLClient
 				
 				onQueryComplete();
 			}
-		}
-
-		public static string QueryChanger(string query)
-		{
-			return query.Replace("{NAME}", pokemonName);
 		}
 	}
 }
