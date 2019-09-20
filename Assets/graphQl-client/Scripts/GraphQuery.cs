@@ -44,12 +44,11 @@ namespace graphQLClient
             DontDestroyOnLoad(gameObject);
 		}
 
-		public static Dictionary<string, string> variable = new Dictionary<string, string>();
-		public static Dictionary<string, string[]> array = new Dictionary<string, string[]>();
+		public static string pokemonName;
 
 		public static void POST(string details)
 		{
-			details = QuerySorter(details);
+			details = QueryChanger(details);
 			var query = new Query { query = details };
 			var jsonData = JsonUtility.ToJson(query);
 			instance.StartCoroutine(GraphQlPost(url, jsonData));
@@ -90,53 +89,9 @@ namespace graphQLClient
 			}
 		}
 
-		public static string QuerySorter(string query)
+		public static string QueryChanger(string query)
 		{
-			string finalString;
-			string[] splitString;
-			string[] separators = { "$", "^" };
-			splitString = query.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-			finalString = splitString[0];
-			for (int i = 1; i < splitString.Length; i++)
-			{
-				if (i % 2 == 0)
-				{
-					finalString += splitString[i];
-				}
-				else
-				{
-					if (!splitString[i].Contains("[]"))
-					{
-						finalString += variable[splitString[i]];
-					}
-					else
-					{
-						finalString += ArraySorter(splitString[i]);
-					}
-				}
-			}
-			return finalString;
-		}
-
-		public static string ArraySorter(string theArray)
-		{
-			string[] anArray;
-			string solution;
-			anArray = array[theArray];
-			solution = "[";
-			foreach (string a in anArray)
-			{
-
-			}
-			for (int i = 0; i < anArray.Length; i++)
-			{
-				solution += anArray[i].Trim(new Char[] { '"' });
-				if (i < anArray.Length - 1)
-					solution += ",";
-			}
-			solution += "]";
-			Debug.Log("This is solution " + solution);
-			return solution;
+			return query.Replace("{NAME}", pokemonName);
 		}
 	}
 }

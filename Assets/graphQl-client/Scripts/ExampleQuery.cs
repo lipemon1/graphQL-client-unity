@@ -10,7 +10,7 @@ public class ExampleQuery : MonoBehaviour
 	public string pokemonName = "Pikachu";
 
 	[Tooltip("This is the query call that gives me Pikachu's details")]
-	[TextArea]
+	[TextArea(0,10)]
 	public string getPokemonDetails;
 
 	public UnityEngine.UI.Text display;
@@ -24,7 +24,7 @@ public class ExampleQuery : MonoBehaviour
 	public void GetPikachuDetails(string username)
 	{
 		GraphQuery.onQueryComplete += DisplayResult;
-		GraphQuery.variable["name"] = pokemonName;
+		GraphQuery.pokemonName = pokemonName;
 		GraphQuery.POST(getPokemonDetails);
 	}
 
