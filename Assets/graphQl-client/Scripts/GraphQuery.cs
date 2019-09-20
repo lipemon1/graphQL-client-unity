@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using SimpleJSON;
 using UnityEngine;
 
 namespace graphQLClient

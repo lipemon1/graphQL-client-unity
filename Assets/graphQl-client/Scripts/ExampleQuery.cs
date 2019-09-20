@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using SimpleJSON;
 using graphQLClient;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
